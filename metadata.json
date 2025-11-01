@@ -1,0 +1,5 @@
+{
+  "name": "Ultimate Tic Tac Toe",
+  "description": "An intuitive and visually clean web-based Ultimate Tic Tac Toe game for two players on a single device. The app aims to teach the rules and strategy of the game, fostering logical thinking in a fun, minimalist environment.",
+  "requestFramePermissions": []
+}
