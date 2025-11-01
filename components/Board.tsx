@@ -14,7 +14,7 @@ interface BoardProps {
 
 const Board: React.FC<BoardProps> = ({ localBoards, globalBoard, activeLocalBoard, onCellClick, currentPlayer, gameState }) => {
     return (
-        <div className="aspect-square grid grid-cols-3 grid-rows-3 gap-2 p-2 bg-slate-800 rounded-xl shadow-2xl">
+        <div className="aspect-square grid grid-cols-3 grid-rows-3 gap-2 p-2 bg-indigo-700 rounded-2xl shadow-2xl">
             {localBoards.map((boardData, index) => (
                 <LocalBoard
                     key={index}

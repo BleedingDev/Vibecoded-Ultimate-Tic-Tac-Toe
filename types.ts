@@ -1,13 +1,12 @@
-
 export enum Player {
-  X = 'X',
-  O = 'O',
+  Cat = 'Cat',
+  Dog = 'Dog',
 }
 
 export enum GameState {
   InProgress = 'InProgress',
-  X_WINS = 'X_WINS',
-  O_WINS = 'O_WINS',
+  Cat_WINS = 'Cat_WINS',
+  Dog_WINS = 'Dog_WINS',
   TIE = 'TIE',
 }
 

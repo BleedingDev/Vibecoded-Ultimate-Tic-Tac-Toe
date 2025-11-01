@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Player, GameState, CellValue, LocalBoardState, GlobalBoardState } from './types';
 import { PLAYER_COLORS } from './constants';
@@ -12,10 +11,10 @@ const App: React.FC = () => {
 
     const [localBoards, setLocalBoards] = useState<LocalBoardState[]>(initialLocalBoards);
     const [globalBoard, setGlobalBoard] = useState<GlobalBoardState>(initialGlobalBoard);
-    const [currentPlayer, setCurrentPlayer] = useState<Player>(Player.X);
+    const [currentPlayer, setCurrentPlayer] = useState<Player>(Player.Cat);
     const [activeLocalBoard, setActiveLocalBoard] = useState<number | null>(null);
     const [gameState, setGameState] = useState<GameState>(GameState.InProgress);
-    const [scores, setScores] = useState<{ [key in Player]: number }>({ [Player.X]: 0, [Player.O]: 0 });
+    const [scores, setScores] = useState<{ [key in Player]: number }>({ [Player.Cat]: 0, [Player.Dog]: 0 });
 
     const checkWinner = (board: CellValue[][]): Player | 'TIE' | null => {
         const lines = [
@@ -67,12 +66,12 @@ const App: React.FC = () => {
 
         const globalWinner = checkGlobalWinner(newGlobalBoard);
         if (globalWinner) {
-            if (globalWinner === Player.X) {
-                setGameState(GameState.X_WINS);
-                setScores(s => ({ ...s, [Player.X]: s[Player.X] + 1 }));
-            } else if (globalWinner === Player.O) {
-                setGameState(GameState.O_WINS);
-                setScores(s => ({ ...s, [Player.O]: s[Player.O] + 1 }));
+            if (globalWinner === Player.Cat) {
+                setGameState(GameState.Cat_WINS);
+                setScores(s => ({ ...s, [Player.Cat]: s[Player.Cat] + 1 }));
+            } else if (globalWinner === Player.Dog) {
+                setGameState(GameState.Dog_WINS);
+                setScores(s => ({ ...s, [Player.Dog]: s[Player.Dog] + 1 }));
             } else {
                 setGameState(GameState.TIE);
             }
@@ -83,39 +82,40 @@ const App: React.FC = () => {
             } else {
                 setActiveLocalBoard(nextLocalBoardIndex);
             }
-            setCurrentPlayer(currentPlayer === Player.X ? Player.O : Player.X);
+            setCurrentPlayer(currentPlayer === Player.Cat ? Player.Dog : Player.Cat);
         }
     };
     
     const handleNewGame = () => {
         setLocalBoards(initialLocalBoards());
         setGlobalBoard(initialGlobalBoard());
-        setCurrentPlayer(Player.X);
+        setCurrentPlayer(Player.Cat);
         setActiveLocalBoard(null);
         setGameState(GameState.InProgress);
     };
 
     const getStatusMessage = () => {
+        const playerName = currentPlayer === Player.Cat ? 'Kočička' : 'Pejsek';
         switch (gameState) {
-            case GameState.X_WINS: return 'Hráč X vyhrál!';
-            case GameState.O_WINS: return 'Hráč O vyhrál!';
+            case GameState.Cat_WINS: return 'Kočička vyhrála!';
+            case GameState.Dog_WINS: return 'Pejsek vyhrál!';
             case GameState.TIE: return 'Remíza!';
-            default: return `Na tahu je Hráč ${currentPlayer}`;
+            default: return `Na tahu je ${playerName}`;
         }
     };
 
     return (
-        <div className="bg-slate-100 min-h-screen text-slate-800 font-sans flex flex-col items-center justify-center p-4">
+        <div className="bg-gradient-to-br from-cyan-100 to-purple-200 min-h-screen text-slate-800 font-sans flex flex-col items-center justify-center p-4">
             <header className="text-center mb-6">
-                <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">Ultimate Tic Tac Toe</h1>
-                <div className="mt-4 p-3 rounded-lg bg-white shadow-md w-full max-w-md mx-auto">
-                    <p className={`text-xl font-semibold transition-colors duration-300 ${PLAYER_COLORS[currentPlayer].text}`}>
+                <h1 className="text-5xl md:text-6xl font-bold text-indigo-800 tracking-tight drop-shadow-md">Ultimate Tic Tac Toe</h1>
+                <div className="mt-4 p-3 rounded-xl bg-white/70 backdrop-blur-sm shadow-lg w-full max-w-md mx-auto">
+                    <p className={`text-2xl font-bold transition-colors duration-300 ${PLAYER_COLORS[currentPlayer].text}`}>
                         {getStatusMessage()}
                     </p>
-                    <div className="mt-2 text-lg font-medium text-slate-600 flex justify-center items-center space-x-4">
-                        <span className={`${PLAYER_COLORS[Player.X].text}`}>Hráč X: {scores[Player.X]}</span>
+                    <div className="mt-2 text-lg font-medium text-slate-700 flex justify-center items-center space-x-4">
+                        <span className={`${PLAYER_COLORS[Player.Cat].text} font-semibold`}>Kočička: {scores[Player.Cat]}</span>
                         <span className="text-slate-400">|</span>
-                        <span className={`${PLAYER_COLORS[Player.O].text}`}>Hráč O: {scores[Player.O]}</span>
+                        <span className={`${PLAYER_COLORS[Player.Dog].text} font-semibold`}>Pejsek: {scores[Player.Dog]}</span>
                     </div>
                 </div>
             </header>
@@ -134,7 +134,7 @@ const App: React.FC = () => {
             <footer className="mt-6">
                 <button 
                     onClick={handleNewGame} 
-                    className="px-8 py-3 bg-slate-800 text-white font-semibold rounded-lg shadow-lg hover:bg-slate-700 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
+                    className="px-8 py-3 bg-pink-500 text-white font-semibold rounded-lg shadow-lg hover:bg-pink-600 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-400 active:scale-95"
                 >
                     Nová hra
                 </button>
