@@ -105,9 +105,9 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="bg-gradient-to-br from-cyan-100 to-purple-200 min-h-screen text-slate-800 font-sans flex flex-col items-center justify-center p-4">
+        <div className="bg-indigo-700 min-h-screen text-white font-sans flex flex-col items-center justify-center p-4">
             <header className="text-center mb-6">
-                <h1 className="text-5xl md:text-6xl font-bold text-indigo-800 tracking-tight drop-shadow-md">Ultimate Tic Tac Toe</h1>
+                <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight drop-shadow-md">Ultimate Tic Tac Toe</h1>
                 <div className="mt-4 p-3 rounded-xl bg-white/70 backdrop-blur-sm shadow-lg w-full max-w-md mx-auto">
                     <p className={`text-2xl font-bold transition-colors duration-300 ${PLAYER_COLORS[currentPlayer].text}`}>
                         {getStatusMessage()}
